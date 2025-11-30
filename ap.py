@@ -10,48 +10,51 @@ client = OpenAI()
 # ------------- PAGE CONFIG + GLOBAL STYLE -------------
 st.set_page_config(page_title="Social Media Agent AI", layout="wide")
 
-st.markdown(
-    """
+st.markdown("""
 <style>
-/* Background gradient */
-.main {
-    background: radial-gradient(circle at top left, #ffe0f2 0, #ffffff 40%, #e3f2ff 100%);
+
+:root {
+    --dark-text: #111827;
+    --light-text: #4b5563;
 }
 
-/* Global font */
-html, body, [class*="css"] {
-    font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+/* Background that works on Streamlit Cloud */
+.appview-container .main .block-container {
+    background: radial-gradient(circle at top left, #ffe0f2 0%, #ffffff 40%, #e3f2ff 100%);
+    padding-top: 1rem !important;
 }
 
-/* Sidebar */
+/* DO NOT override all css classes - safe fonts only */
+body, p, span, div, label, input, textarea {
+    font-family: "Segoe UI", system-ui, sans-serif !important;
+}
+
+/* Sidebar styling */
 section[data-testid="stSidebar"] {
     background: linear-gradient(180deg, #111827, #020617);
-    color: #e5e7eb;
+    color: #e5e7eb !important;
 }
-section[data-testid="stSidebar"] h1, 
-section[data-testid="stSidebar"] h2, 
-section[data-testid="stSidebar"] h3, 
-section[data-testid="stSidebar"] p {
-    color: #e5e7eb;
+section[data-testid="stSidebar"] * {
+    color: #e5e7eb !important;
 }
 
-/* Brand title */
+/* HERO TITLE */
 .hero-title {
-    font-size: 40px;
+    font-size: 42px;
     font-weight: 800;
-    margin-bottom: 0;
+    margin-bottom: 10px;
     background: linear-gradient(90deg,#ec4899,#8b5cf6,#0ea5e9);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-/* Hero subtitle */
+/* HERO SUBTITLE */
 .hero-sub {
-    font-size: 16px;
-    color: #4b5563;
+    font-size: 18px;
+    color: var(--light-text);
 }
 
-/* Gradient info bar */
+/* Info bar */
 .hero-bar {
     padding: 14px 18px;
     border-radius: 999px;
@@ -59,67 +62,59 @@ section[data-testid="stSidebar"] p {
     align-items: center;
     gap: 8px;
     background: linear-gradient(90deg,rgba(236,72,153,0.12),rgba(59,130,246,0.12));
-    border: 1px solid rgba(236,72,153,0.35);
+    border: 1px solid rgba(236,72,153,0.25);
     font-size: 13px;
     margin-bottom: 16px;
 }
 
-/* Card container */
+/* Cards */
 .card {
-    background: #ffffffcc;
+    background: rgba(255,255,255,0.85);
     border-radius: 18px;
-    padding: 22px 22px 18px 22px;
+    padding: 22px;
     box-shadow: 0 18px 45px rgba(15,23,42,0.12);
     border: 1px solid #e5e7eb;
 }
 
 /* Section headings */
-h2, h3 {
-    font-weight: 700;
-    color: #111827;
+h1, h2, h3 {
+    color: var(--dark-text) !important;
+    font-weight: 700 !important;
 }
 
 /* Buttons */
 .stButton>button {
     background: linear-gradient(90deg,#ec4899,#8b5cf6);
-    color: white;
+    color: white !important;
     border-radius: 999px;
-    padding: 0.6rem 1.6rem;
-    border: none;
-    font-weight: 600;
-    font-size: 15px;
+    padding: 0.6rem 1.6rem !important;
+    border: none !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
 }
 .stButton>button:hover {
-    background: linear-gradient(90deg,#f97316,#ec4899);
+    background: linear-gradient(90deg,#f97316,#ec4899) !important;
 }
 
-/* Text area & inputs */
+/* Inputs */
 textarea, input, select {
     border-radius: 10px !important;
 }
 
 /* Tabs */
-.stTabs [data-baseweb="tab-list"] {
-    gap: 6px;
-}
 .stTabs [data-baseweb="tab"] {
-    border-radius: 999px;
-    padding: 8px 18px;
-    background-color: #f3f4f6;
+    border-radius: 999px !important;
+    padding: 8px 18px !important;
+    background-color: #f3f4f6 !important;
 }
 .stTabs [aria-selected="true"] {
     background: linear-gradient(90deg,#ec4899,#8b5cf6) !important;
-    color: #ffffff !important;
+    color: white !important;
 }
 
-/* Code block */
-code {
-    font-size: 13px !important;
-}
 </style>
-""",
-    unsafe_allow_html=True,
-)
+""", unsafe_allow_html=True)
+
 
 # ------------- SIDEBAR -------------
 with st.sidebar:
@@ -356,4 +351,5 @@ with caption_tab:
     st.markdown("</div>", unsafe_allow_html=True)
 
 st.write("")
+
 
